@@ -39,14 +39,14 @@ class DeviceBridge:
                 ["adb", "-s", self.serial] + command.split(),
                 capture_output=True,
                 text=True,
-                timeout=0.0001  # absurdly small, forces timeout
+                timeout=10  # absurdly small, forces timeout
             )
             result.check_returncode()  # raises if adb errored
             return result.stdout, result.stderr
         except subprocess.TimeoutExpired:
             return None, "Command Timeout out"  
         except subprocess.CalledProcessError as e:
-            return None,f"adb error{e}"  
+            return None,f"adb error {e}"  
         
             
 d = DeviceBridge("emulator-5554")  # replace with your device ID from adb devices
