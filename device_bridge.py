@@ -36,7 +36,7 @@ class DeviceBridge:
             raise RuntimeError(f"{self.serial} not connected try connect()")
         try:
             result = subprocess.run(
-                ["adb", "-s", self.serial] + command.split(),
+                ["adb", "-s", self.serial] + command,
                 capture_output=True,
                 text=True,
                 timeout=10  # absurdly small, forces timeout
@@ -48,11 +48,11 @@ class DeviceBridge:
         except subprocess.CalledProcessError as e:
             return None,f"adb error {e}"  
         
-            
-d = DeviceBridge("emulator-5554")  # replace with your device ID from adb devices
-d.connect()
-output, error = d.run_command("shell getprop ro.build.fingerprin")
-print(f"Device model: {output} and {error}")
+#             
+# d = DeviceBridge("emulator-5554")  # replace with your device ID from adb devices
+# d.connect()
+# output, error = d.run_command("shell getprop ro.build.fingerprin")
+# print(f"Device model: {output} and {error}")
 
 
 
