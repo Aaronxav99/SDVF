@@ -57,3 +57,20 @@ def test_get_device_info(device):
     assert info.build_fingerprint != ""
 
     print(f"\nDevice info: {info}")
+
+@pytest.mark.parametrize("prop,expected",[
+     ("ro.product.model",         ""),        # just check not empty
+    ("ro.build.version.release", ""),        # just check not empty  
+    ("ro.build.fingerprint",     "google"),  # should contain google
+    ("ro.product.manufacturer",  ""),        #check if not empty
+
+])
+
+def test_device_properties(device,prop,expected):
+    output,_=device.run_command(f"shell getprop {prop}".split())
+
+    assert output is not None
+    assert output.strip() != ""
+    
+    if expected:                              # only check if expected is not empty
+        assert expected.lower() in output.lower()
