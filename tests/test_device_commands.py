@@ -4,11 +4,11 @@ import time
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from device_bridge import DeviceBridge
+from device_bridge import AndroidDevice
 
 
 def test_status_default():
-    bridge = DeviceBridge("test")
+    bridge = AndroidDevice("test")
     assert bridge.get_status() == "disconnected"
 
 def test_getprop(device):

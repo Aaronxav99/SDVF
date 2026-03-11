@@ -8,7 +8,7 @@ class DeviceInfo:
     build_fingerprint:str
 
 
-class DeviceBridge:
+class BaseDevice:
 
     def __init__(self,serial:str):
         '''
@@ -55,7 +55,15 @@ class DeviceBridge:
             return None, "Command Timeout out"  
         except subprocess.CalledProcessError as e:
             return None,f"adb error {e}"  
+
+class AndroidDevice(BaseDevice):
+    def __init__(self, serial):
+        super().__init__(serial)
         
+
+
+
+
     def get_device_info(self) -> DeviceInfo  :
          model, _ = self.run_command("shell getprop ro.product.model".split())
          android_version, _ = self.run_command("shell getprop ro.build.version.release".split())
