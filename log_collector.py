@@ -8,7 +8,7 @@ class LogCollector:
         self.serial=serial
         self.process=None
         self.filename=filename
-        self.log_file=None
+        # self.log_file=None
 
 
     def start(self):
@@ -37,6 +37,12 @@ class LogCollector:
     def __exit__(self, exc_type, exc, tb):
         self.stop()
         return False   # dont supress the exceptions 
+
+    def parse_errors(self):
+        with open(self.filename,"r") as f:
+            for line in f:
+                if "ERROR" in line or "CRITICAL" in line or "FATAL" in line:
+                    yield line.strip() 
     
 
 if __name__ == "__main__":
@@ -44,5 +50,15 @@ if __name__ == "__main__":
     with LogCollector("emulator-5554") as collector:
         print("collecting logs for 5 seconds...")
         time.sleep(5)
+   
+
+    print("\n--- Errors Found ---")
+    error_count = 0
+    for error in collector.parse_errors():
+        print(error)
+        error_count += 1
+    
+    print(f"\nTotal errors found: {error_count}")
+
     print("done — check logs/logcat.txt")
             
