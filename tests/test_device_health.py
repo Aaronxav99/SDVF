@@ -1,5 +1,6 @@
 import pytest
-from device_bridge import DeviceInfo
+from sdvf import AndroidDevice
+from sdvf import DeviceInfo
 
 def test_device1_uptime(device):
     output,error=device.run_command(

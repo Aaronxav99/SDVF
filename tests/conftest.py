@@ -2,8 +2,8 @@ import pytest
 import sys,os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from device_bridge import AndroidDevice
-from log_collector import LogCollector
+from sdvf import AndroidDevice
+from sdvf import LogCollector
 
 
 

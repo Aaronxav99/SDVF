@@ -3,7 +3,7 @@ import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from device_bridge import AndroidDevice
+from sdvf import AndroidDevice
 
 
 def test_status_default():
