@@ -1,3 +1,5 @@
+![CI](https://github.com/Aaronxav99/SDVF/actions/workflows/tests.yml/badge.svg)
+
 # SDVF — Smart Device Validation Framework
 
 Python-based validation framework for Android and wearable devices.
