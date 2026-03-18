@@ -2,6 +2,8 @@ import pytest
 from sdvf import AndroidDevice
 from sdvf import DeviceInfo
 
+
+
 def test_device1_uptime(device):
     output,error=device.run_command(
         ["shell","uptime"]     #information on how long the Android system has been running since its last boot
@@ -16,6 +18,7 @@ def test_device_model(device):
     )
 
     assert output is not None
+
 
 def test_battery_status(device):
 
