@@ -7,7 +7,7 @@ from sdvf import LogCollector
 
 
 
-@pytest.fixture
+@pytest.fixture(scope ="session")
 def device():
     bridge=AndroidDevice("emulator-5554")
     bridge.connect()
