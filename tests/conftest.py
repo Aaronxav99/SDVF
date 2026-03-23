@@ -7,14 +7,16 @@ from sdvf import LogCollector
 
 
 
-@pytest.fixture(scope ="session")
+@pytest.fixture(scope="session", autouse=True)
+def logger():
+    log = LogCollector("emulator-5554")
+    log.start()
+    yield log
+    log.stop()
+
+@pytest.fixture(scope="session")
 def device():
-    bridge=AndroidDevice("emulator-5554")
+    bridge = AndroidDevice("emulator-5554")
     bridge.connect()
-    logger = LogCollector("emulator-5554")
-    logger.start()
-
     yield bridge
-
-    logger.stop()
     bridge.disconnect()
