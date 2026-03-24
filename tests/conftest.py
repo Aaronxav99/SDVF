@@ -4,6 +4,8 @@ import sys,os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from sdvf import AndroidDevice
 from sdvf import LogCollector
+from sdvf.profiler import Profiler
+
 
 
 
@@ -20,3 +22,12 @@ def device():
     bridge.connect()
     yield bridge
     bridge.disconnect()
+
+
+@pytest.fixture(scope="session", autouse=True)
+def profiler():
+    p = Profiler("emulator-5554", interval=1)
+    p.start()
+    yield p
+    p.stop()
+    p.summary()    

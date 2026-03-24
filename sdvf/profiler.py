@@ -82,11 +82,16 @@ class Profiler:
             print("No data collected")
             return
         cpu_values = [d.cpu_percent for d in self.data]
-        temp_values = [d.thermal_temp for d in self.data]
+        temp_values = [d.thermal_temp for d in self.data if d.thermal_temp is not None]
+
         print(f"CPU  — avg: {sum(cpu_values)/len(cpu_values):.1f}%  "
-              f"max: {max(cpu_values):.1f}%")
-        print(f"Temp — avg: {sum(temp_values)/len(temp_values):.1f}°C  "
-              f"max: {max(temp_values):.1f}°C")
+            f"max: {max(cpu_values):.1f}%")
+
+        if temp_values:
+            print(f"Temp — avg: {sum(temp_values)/len(temp_values):.1f}°C  "
+                f"max: {max(temp_values):.1f}°C")
+        else:
+            print("Temp — not available (emulator or no thermal sensor)")
 
 
 if __name__ == "__main__":
