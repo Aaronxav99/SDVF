@@ -33,3 +33,4 @@ def profiler():
     if not p.is_healthy():
         print("\nWARNING: profiler collected no real data — was the device reachable?")
     p.summary()    
+    p.plot_timeline("reports/profiler_timeline.png")

@@ -99,6 +99,39 @@ class Profiler:
             return False
         return any(d.cpu_percent>0.0 for d in self.data)
     
+    def plot_timeline(self,output_path=r"D:\upskilling\tasks\month_1\week_1\SDVF\reports\profiler_report.png"):
+        if not self.data:
+            print("not data plotted")
+            return
+        import matplotlib.pyplot as plt
+
+        timestamps = [d.timestamp - self.data[0].timestamp for d in self.data]
+        cpu_values = [d.cpu_percent for d in self.data]
+        temp_values = [d.thermal_temp if d.thermal_temp is not None else 0 
+                    for d in self.data]
+
+        fig, ax1 = plt.subplots(figsize=(10, 4))
+
+        ax1.plot(timestamps, cpu_values, color="steelblue", label="CPU %", linewidth=2)
+        ax1.set_xlabel("Time (s)")
+        ax1.set_ylabel("CPU %", color="steelblue")
+        ax1.set_ylim(0, 100)
+
+        if any(d.thermal_temp for d in self.data):
+            ax2 = ax1.twinx()
+            ax2.plot(timestamps, temp_values, color="tomato", 
+                    label="Temp °C", linewidth=2, linestyle="--")
+            ax2.set_ylabel("Temp °C", color="tomato")
+
+        plt.title("Device profiler — CPU & thermal timeline")
+        plt.tight_layout()
+        plt.savefig(output_path)
+        plt.close()
+        print(f"Chart saved to {output_path}")
+
+
+
+
 
 if __name__ == "__main__":
     p = Profiler("emulator-5554", interval=1)
