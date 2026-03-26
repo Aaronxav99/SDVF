@@ -17,4 +17,12 @@ def test_device_intializes():
     assert bridge.serial=="ADBD"
     assert bridge.connected==False
 
+
+def test_profiler_is_collecting(profiler):
+    import time
+    time.sleep(3)  # let it collect a few points
+    assert len(profiler.data) > 0, "Profiler collected no data"
+    assert any(d.cpu_percent >= 0.0 for d in profiler.data), "No CPU readings"
+    print(f"\nProfiler has {len(profiler.data)} points so far")    
+
     

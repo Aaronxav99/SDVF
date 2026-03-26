@@ -30,4 +30,6 @@ def profiler():
     p.start()
     yield p
     p.stop()
+    if not p.is_healthy():
+        print("\nWARNING: profiler collected no real data — was the device reachable?")
     p.summary()    

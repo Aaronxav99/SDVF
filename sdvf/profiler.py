@@ -93,6 +93,12 @@ class Profiler:
         else:
             print("Temp — not available (emulator or no thermal sensor)")
 
+    def is_healthy(self)-> bool:
+        """Return False if CPU values are 0.0 device most likely not able to reach"""
+        if not self.data:
+            return False
+        return any(d.cpu_percent>0.0 for d in self.data)
+    
 
 if __name__ == "__main__":
     p = Profiler("emulator-5554", interval=1)
